@@ -6,15 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageobject.ForgotPasswordPageStellarBurgers;
 import pageobject.HomePageStellarBurgers;
 import pageobject.LoginPageStellarBurgers;
-import pageobject.RegisterPageStellarBurgers;
+import pageobject.PersonalAccountPageStellarBurgers;
 
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.assertTrue;
 
-public class LoginUserTests {
+public class PersonalAccountTests {
 
     private User user;
     private UserClient userClient;
@@ -44,8 +43,8 @@ public class LoginUserTests {
     }
 
     @Test
-    @DisplayName("Тест входа по кнопке «Войти в аккаунт» на главной странице")
-    public void loginUserFromLoginInAccountHomePageShowsOk() {
+    @DisplayName("Тест перехода в Личный кабинет")
+    public void gotoPersonalAccountShowsOk() {
 
         HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
         objHomePageStellarBurgers.clickLoginAccount();
@@ -54,67 +53,71 @@ public class LoginUserTests {
         objLoginPageStellarBurgers.enterEmail(user.getEmail());
         objLoginPageStellarBurgers.enterPassword(user.getPassword());
         objLoginPageStellarBurgers.clickEnter();
-        boolean isPlaceOrderButton = objHomePageStellarBurgers.checkLoadHomePageAfterLogin();
-
-        assertTrue(isPlaceOrderButton);
-    }
-
-    @Test
-    @DisplayName("Тест входа через кнопку «Личный кабинет» на главной странице")
-    public void loginUserFromPersonalAccountHomePageShowsOk() {
-
-        HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
         objHomePageStellarBurgers.clickPersonalAccount();
 
-        LoginPageStellarBurgers objLoginPageStellarBurgers = new LoginPageStellarBurgers(driver);
-        objLoginPageStellarBurgers.enterEmail(user.getEmail());
-        objLoginPageStellarBurgers.enterPassword(user.getPassword());
-        objLoginPageStellarBurgers.clickEnter();
-        boolean isPlaceOrderButton = objHomePageStellarBurgers.checkLoadHomePageAfterLogin();
+        PersonalAccountPageStellarBurgers objPersonalAccountPageStellarBurgers = new PersonalAccountPageStellarBurgers(driver);
+        boolean isSaveButtonDisplayed = objPersonalAccountPageStellarBurgers.checkLoadPersonalAccountPage();
 
-        assertTrue(isPlaceOrderButton);
+        assertTrue(isSaveButtonDisplayed);
     }
 
     @Test
-    @DisplayName("Тест входа через кнопку в форме регистрации")
-    public void loginUserFromRegisterPageShowsOk() {
+    @DisplayName("Тест перехода из личного кабинета в конструктор по клику на Конструктор")
+    public void gotoConstructorByClickConstructorFromPersonalAccountShowsOk() {
 
         HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
         objHomePageStellarBurgers.clickLoginAccount();
 
         LoginPageStellarBurgers objLoginPageStellarBurgers = new LoginPageStellarBurgers(driver);
-        objLoginPageStellarBurgers.clickRegister();
-
-        RegisterPageStellarBurgers objRegisterPageStellarBurgers = new RegisterPageStellarBurgers(driver);
-        objRegisterPageStellarBurgers.clickEnter();
-
         objLoginPageStellarBurgers.enterEmail(user.getEmail());
         objLoginPageStellarBurgers.enterPassword(user.getPassword());
         objLoginPageStellarBurgers.clickEnter();
-        boolean isPlaceOrderButton = objHomePageStellarBurgers.checkLoadHomePageAfterLogin();
+        objHomePageStellarBurgers.clickPersonalAccount();
 
-        assertTrue(isPlaceOrderButton);
+        PersonalAccountPageStellarBurgers objPersonalAccountPageStellarBurgers = new PersonalAccountPageStellarBurgers(driver);
+        objPersonalAccountPageStellarBurgers.clickConstructor();
+        boolean isHomePageDisplayed = objHomePageStellarBurgers.checkLoadHomePageAfterLogin();
+
+        assertTrue(isHomePageDisplayed);
     }
 
     @Test
-    @DisplayName("Тест входа через кнопку в форме восстановления пароля")
-    public void loginUserFromForgotPasswordPageShowsOk() {
+    @DisplayName("Тест перехода из личного кабинета в конструктор по клику на логотип Stellar Burgers")
+    public void gotoConstructorByClickLogoFromPersonalAccountShowsOk() {
 
         HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
         objHomePageStellarBurgers.clickLoginAccount();
 
         LoginPageStellarBurgers objLoginPageStellarBurgers = new LoginPageStellarBurgers(driver);
-        objLoginPageStellarBurgers.clickForgotPassword();
-
-        ForgotPasswordPageStellarBurgers objForgotPasswordPageStellarBurgers = new ForgotPasswordPageStellarBurgers(driver);
-        objForgotPasswordPageStellarBurgers.clickEnter();
-
         objLoginPageStellarBurgers.enterEmail(user.getEmail());
         objLoginPageStellarBurgers.enterPassword(user.getPassword());
         objLoginPageStellarBurgers.clickEnter();
-        boolean isPlaceOrderButton = objHomePageStellarBurgers.checkLoadHomePageAfterLogin();
+        objHomePageStellarBurgers.clickPersonalAccount();
 
-        assertTrue(isPlaceOrderButton);
+        PersonalAccountPageStellarBurgers objPersonalAccountPageStellarBurgers = new PersonalAccountPageStellarBurgers(driver);
+        objPersonalAccountPageStellarBurgers.clickLogo();
+        boolean isHomePageDisplayed = objHomePageStellarBurgers.checkLoadHomePageAfterLogin();
+
+        assertTrue(isHomePageDisplayed);
     }
 
+    @Test
+    @DisplayName("Тест выхода по кнопке Выйти в личном кабинете")
+    public void quitFromAccountByClickQuitFromPersonalAccountShowsOk() {
+
+        HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
+        objHomePageStellarBurgers.clickLoginAccount();
+
+        LoginPageStellarBurgers objLoginPageStellarBurgers = new LoginPageStellarBurgers(driver);
+        objLoginPageStellarBurgers.enterEmail(user.getEmail());
+        objLoginPageStellarBurgers.enterPassword(user.getPassword());
+        objLoginPageStellarBurgers.clickEnter();
+        objHomePageStellarBurgers.clickPersonalAccount();
+
+        PersonalAccountPageStellarBurgers objPersonalAccountPageStellarBurgers = new PersonalAccountPageStellarBurgers(driver);
+        objPersonalAccountPageStellarBurgers.clickQuit();
+        boolean isLoginPageDisplayed = objLoginPageStellarBurgers.checkLoadLoginPage();
+
+        assertTrue(isLoginPageDisplayed);
+    }
 }
