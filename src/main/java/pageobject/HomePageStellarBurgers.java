@@ -12,6 +12,12 @@ public class HomePageStellarBurgers {
     private static final By LOGIN_ACCOUNT_BUTTON = By.xpath(".//button[text()='Войти в аккаунт']");
     private static final By PLACE_ORDER_BUTTON = By.xpath(".//button[text()='Оформить заказ']");
     private static final By PERSONAL_ACCOUNT_BUTTON = By.xpath("//*[@id=\"root\"]/div/header/nav/a/p");
+    private static final By BUNS_LINK = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[1]");
+    private static final By SAUCES_LINK = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[2]");
+    private static final By FILLINGS_LINK = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[3]");
+    private static final By BUNS_SECTION = By.xpath(".//h2[text()='Булки']");
+    private static final By SAUCES_SECTION = By.xpath(".//h2[text()='Соусы']");
+    private static final By FILLINGS_SECTION = By.xpath(".//h2[text()='Начинки']");
 
     private WebDriver driver;
 
@@ -34,5 +40,41 @@ public class HomePageStellarBurgers {
         WebElement placeOrderButton = new WebDriverWait(driver, 5).until(
                 ExpectedConditions.visibilityOfElementLocated(PLACE_ORDER_BUTTON));
         return placeOrderButton.isDisplayed();
+    }
+
+    @Step("Клик по по разделу Булки")
+    public void clickBuns() {
+        driver.findElement(BUNS_LINK).click();
+    }
+
+    @Step("Клик по по разделу Соусы")
+    public void clickSauces() {
+        driver.findElement(SAUCES_LINK).click();
+    }
+
+    @Step("Клик по по разделу Начинки")
+    public void clickFillings() {
+        driver.findElement(FILLINGS_LINK).click();
+    }
+
+    @Step("Проверка отображения раздела Булки")
+    public boolean checkDisplayedBunsSection() {
+        WebElement bunSection = new WebDriverWait(driver, 5).until(
+                ExpectedConditions.visibilityOfElementLocated(BUNS_SECTION));
+        return bunSection.isDisplayed();
+    }
+
+    @Step("Проверка отображения раздела Соусы")
+    public boolean checkDisplayedSaucesSection() {
+        WebElement saucesSection = new WebDriverWait(driver, 5).until(
+                ExpectedConditions.visibilityOfElementLocated(SAUCES_SECTION));
+        return saucesSection.isDisplayed();
+    }
+
+    @Step("Проверка отображения раздела Начинки")
+    public boolean checkDisplayedFillingsSection() {
+        WebElement fillingsSection = new WebDriverWait(driver, 5).until(
+                ExpectedConditions.visibilityOfElementLocated(FILLINGS_SECTION));
+        return fillingsSection.isDisplayed();
     }
 }
