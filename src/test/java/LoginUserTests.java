@@ -20,12 +20,12 @@ public class LoginUserTests {
     private UserClient userClient;
     private WebDriver driver;
     private ValidatableResponse response;
-    private String accessToken;
     public static final String HOME_PAGE_URL = "https://stellarburgers.nomoreparties.site/";
 
     @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
+        //System.setProperty("webdriver.chrome.driver", "src/main/resources/yandexdriver.exe");
         driver = new ChromeDriver();
         driver.get(HOME_PAGE_URL);
 
@@ -36,9 +36,9 @@ public class LoginUserTests {
 
     @After
     public void tearDown() {
-        driver.quit();;
+        driver.quit();
         if (response.extract().statusCode() == SC_OK) {
-            accessToken = response.extract().path("accessToken");
+            String accessToken = response.extract().path("accessToken");
             userClient.deleteUser(accessToken.split(" ")[1]);
         }
     }

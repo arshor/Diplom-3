@@ -24,6 +24,7 @@ public class RegisterUserTests {
     @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
+        //System.setProperty("webdriver.chrome.driver", "src/main/resources/yandexdriver.exe");
         driver = new ChromeDriver();
         driver.get(HOME_PAGE_URL);
 
