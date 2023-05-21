@@ -15,9 +15,11 @@ public class HomePageStellarBurgers {
     private static final By BUNS_LINK = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[1]");
     private static final By SAUCES_LINK = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[2]");
     private static final By FILLINGS_LINK = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[1]/div[3]");
-    private static final By BUNS_SECTION = By.xpath(".//h2[text()='Булки']");
+    private static final By BUNS_SECTION = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[2]/h2[1]");
     private static final By SAUCES_SECTION = By.xpath(".//h2[text()='Соусы']");
-    private static final By FILLINGS_SECTION = By.xpath(".//h2[text()='Начинки']");
+    private static final By FILLINGS_SECTION = By.xpath("//*[@id=\"root\"]/div/main/section[1]/div[2]/h2[3]");
+    private static final By ACTIVE_SECTION = By.xpath(
+            ".//section[@class='BurgerIngredients_ingredients__1N8v2']/div/div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/span");
 
     private WebDriver driver;
 
@@ -57,24 +59,10 @@ public class HomePageStellarBurgers {
         driver.findElement(FILLINGS_LINK).click();
     }
 
-    @Step("Проверка отображения раздела Булки")
-    public boolean checkDisplayedBunsSection() {
-        WebElement bunSection = new WebDriverWait(driver, 5).until(
-                ExpectedConditions.visibilityOfElementLocated(BUNS_SECTION));
-        return bunSection.isDisplayed();
+    @Step("Получить название активного раздела")
+    public String getActiveSectionName() {
+        return driver.findElement(ACTIVE_SECTION).getText();
     }
 
-    @Step("Проверка отображения раздела Соусы")
-    public boolean checkDisplayedSaucesSection() {
-        WebElement saucesSection = new WebDriverWait(driver, 5).until(
-                ExpectedConditions.visibilityOfElementLocated(SAUCES_SECTION));
-        return saucesSection.isDisplayed();
-    }
 
-    @Step("Проверка отображения раздела Начинки")
-    public boolean checkDisplayedFillingsSection() {
-        WebElement fillingsSection = new WebDriverWait(driver, 5).until(
-                ExpectedConditions.visibilityOfElementLocated(FILLINGS_SECTION));
-        return fillingsSection.isDisplayed();
-    }
 }

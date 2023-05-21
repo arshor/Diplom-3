@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pageobject.HomePageStellarBurgers;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class SectionsHomePageTests {
 
@@ -33,9 +33,9 @@ public class SectionsHomePageTests {
 
         HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
         objHomePageStellarBurgers.clickFillings();
-        boolean isFillingsSectionDisplayed = objHomePageStellarBurgers.checkDisplayedFillingsSection();
+        String nameActiveSection = objHomePageStellarBurgers.getActiveSectionName();
 
-        assertTrue(isFillingsSectionDisplayed);
+        assertEquals("Начинки", nameActiveSection);
     }
 
     @Test
@@ -45,9 +45,9 @@ public class SectionsHomePageTests {
         HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
         objHomePageStellarBurgers.clickFillings();
         objHomePageStellarBurgers.clickBuns();
-        boolean isBunsSectionDisplayed = objHomePageStellarBurgers.checkDisplayedBunsSection();
+        String nameActiveSection = objHomePageStellarBurgers.getActiveSectionName();
 
-        assertTrue(isBunsSectionDisplayed);
+        assertEquals("Булки", nameActiveSection);
     }
 
     @Test
@@ -55,10 +55,9 @@ public class SectionsHomePageTests {
     public void gotoSaucesSectionShowsOk() {
 
         HomePageStellarBurgers objHomePageStellarBurgers = new HomePageStellarBurgers(driver);
-        objHomePageStellarBurgers.clickFillings();
         objHomePageStellarBurgers.clickSauces();
-        boolean isSaucesSectionDisplayed = objHomePageStellarBurgers.checkDisplayedSaucesSection();
+        String nameActiveSection = objHomePageStellarBurgers.getActiveSectionName();
 
-        assertTrue(isSaucesSectionDisplayed);
+        assertEquals("Соусы", nameActiveSection);
     }
 }
